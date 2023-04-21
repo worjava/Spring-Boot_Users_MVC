@@ -29,10 +29,12 @@ public class UserController {
         model.addAttribute("users", userServiceImp.index());// user добавляем атрибут в html
         return "users/index";
     }
-    @GetMapping("/{id}") // add slash /people/id
-    public String show(@PathVariable("id") int id, Model model)
-    {
-        model.addAttribute("user", userServiceImp.show(id));
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") String id, Model model) {
+        if (id.equals("favicon.ico")) {
+            return "redirect:/";
+        }
+        model.addAttribute("user", userServiceImp.show(Integer.parseInt(id)));
         return "users/show";
     }
     @GetMapping("/new")
